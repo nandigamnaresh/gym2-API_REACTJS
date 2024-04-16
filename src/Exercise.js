@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Naresh from 'axios'
 
-function App2({ h, n }) {
+export const Exercise = ({r}) => {
+    const [a, b] = useState([])
 
-    const [a, b] = useState();
 
 
-    const Data = async () => {
+    const Full = async () => {
         const options = {
             method: 'GET',
-            url: `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${h}`,
-            params: { limit: `${n}` },
+            url: 'https://exercisedb.p.rapidapi.com/exercises',
+            params: { limit: `${r}` },
             headers: {
                 // 'X-RapidAPI-Key': '5d2f083533mshcbe5342d0ed436cp1754a1jsn0ecf5e5e1777',
                 'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
             }
         };
-
 
         try {
             const response = await Naresh.request(options);
@@ -30,8 +29,12 @@ function App2({ h, n }) {
 
 
     useEffect(() => {
-        Data()
-    }, [h, n])
+        Full();
+    }, [r])
+
+
+    
+
 
 
 
@@ -44,14 +47,15 @@ function App2({ h, n }) {
     return (
         <div>
 
+
             <h2 className='text-center  fw-bold pb-5 pt-3' style={{ color: "GREEN", border: "2px solid white", backgroundColor: "white" }}>BODYPARTS</h2>
-            <div className='container-fluid'>
+            <div className='container'>
                 <div className='row ms-5'>
                     {
                         a && a.map(data =>
                             <div className='col-lg-4 pb-5 ps-5'>
 
-                                <div class="card mt-4" style={{ width: "25rem" }} id='main-body'>
+                                <div class="card mt-4" style={{ width: "18rem" }} id='main-body'>
                                     <div class="card-body  pt-4 pb-4 ">
                                         <h3 class="card-title ps-3">BODYPART: {data.bodyPart.toUpperCase()}</h3>
                                         <h6 className='card-text ms-3'>TARGET : {data.target.toUpperCase()}</h6>
@@ -78,11 +82,6 @@ function App2({ h, n }) {
             </div>
 
 
-
-
-
         </div>
     )
 }
-
-export default App2
